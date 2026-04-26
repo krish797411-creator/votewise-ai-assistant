@@ -8,64 +8,32 @@ import {
   Trophy,
   ChevronDown,
 } from "lucide-react";
+import { useI18n } from "@/i18n/I18nProvider";
+import type { TKey } from "@/i18n/translations";
 
-const steps = [
-  {
-    icon: CheckCircle2,
-    title: "Check Eligibility",
-    short: "Make sure you can vote",
-    color: "from-emerald to-cyan",
-    details:
-      "You must be 18 years or older on the qualifying date and a citizen of the country. Check that you're not disqualified by law and that your name isn't already on another constituency's roll.",
-  },
-  {
-    icon: UserCheck,
-    title: "Register to Vote",
-    short: "Get on the electoral roll",
-    color: "from-cyan to-primary",
-    details:
-      "Register online via the Election Commission portal or fill Form 6 offline. You'll need proof of age, address, and a recent photograph. Registration usually closes 10 days before the announcement.",
-  },
-  {
-    icon: IdCard,
-    title: "Verify Voter ID",
-    short: "Confirm your EPIC card",
-    color: "from-primary to-primary-glow",
-    details:
-      "Once registered, you'll receive your EPIC (Electors Photo Identity Card). Verify your name, photo, and constituency details on the official voter portal before election day.",
-  },
-  {
-    icon: Users,
-    title: "Understand Candidates",
-    short: "Research before you decide",
-    color: "from-primary-glow to-rose",
-    details:
-      "Read each candidate's manifesto, criminal record (if any), education, and previous work. Trustworthy sources include MyNeta, official party websites, and verified news outlets.",
-  },
-  {
-    icon: Vote,
-    title: "Voting Day Process",
-    short: "Cast your ballot confidently",
-    color: "from-rose to-amber",
-    details:
-      "Visit your assigned booth with your Voter ID or alternative photo ID. Get your finger inked, sign the register, and press the button next to your candidate on the EVM. Verify the VVPAT slip.",
-  },
-  {
-    icon: Trophy,
-    title: "Result Declaration",
-    short: "Watch democracy unfold",
-    color: "from-amber to-emerald",
-    details:
-      "Results are usually declared within hours of counting, on official channels and trusted news sources. The winning candidate is the one with the most votes in your constituency.",
-  },
-];
+const stepMeta = [
+  { icon: CheckCircle2, color: "from-emerald to-cyan", k: 1 },
+  { icon: UserCheck, color: "from-cyan to-primary", k: 2 },
+  { icon: IdCard, color: "from-primary to-primary-glow", k: 3 },
+  { icon: Users, color: "from-primary-glow to-rose", k: 4 },
+  { icon: Vote, color: "from-rose to-amber", k: 5 },
+  { icon: Trophy, color: "from-amber to-emerald", k: 6 },
+] as const;
 
 export const StepGuide = () => {
   const [open, setOpen] = useState<number | null>(0);
   const btnRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const { t } = useI18n();
+  const steps = stepMeta.map((m) => ({
+    icon: m.icon,
+    color: m.color,
+    title: t(`guide.s${m.k}.title` as TKey),
+    short: t(`guide.s${m.k}.short` as TKey),
+    details: t(`guide.s${m.k}.details` as TKey),
+  }));
 
   const focusBtn = (i: number) => {
-    const total = steps.length;
+    const total = stepMeta.length;
     const next = ((i % total) + total) % total;
     btnRefs.current[next]?.focus();
   };
@@ -88,7 +56,7 @@ export const StepGuide = () => {
         break;
       case "End":
         e.preventDefault();
-        focusBtn(steps.length - 1);
+        focusBtn(stepMeta.length - 1);
         break;
       case "Escape":
         if (open === i) {
@@ -103,9 +71,9 @@ export const StepGuide = () => {
     <section id="guide" className="py-24 relative">
       <div className="container">
         <SectionHeader
-          tag="STEP-BY-STEP"
-          title="Your Election Journey"
-          subtitle="Six simple steps from eligibility to your first vote."
+          tag={t("guide.tag")}
+          title={t("guide.title")}
+          subtitle={t("guide.subtitle")}
         />
 
         <div

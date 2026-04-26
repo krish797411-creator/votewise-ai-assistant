@@ -1,33 +1,7 @@
 import { useEffect, useState } from "react";
 import { CalendarClock, FileEdit, Vote, Trophy } from "lucide-react";
 import { SectionHeader } from "./StepGuide";
-
-const events = [
-  {
-    icon: FileEdit,
-    label: "Registration Deadline",
-    date: "April 30, 2026",
-    desc: "Last day to add your name to the electoral roll.",
-    color: "from-cyan to-primary",
-    daysFromNow: 4,
-  },
-  {
-    icon: Vote,
-    label: "Voting Day",
-    date: "May 18, 2026",
-    desc: "Polls open from 7:00 AM to 6:00 PM at your assigned booth.",
-    color: "from-primary to-primary-glow",
-    daysFromNow: 22,
-  },
-  {
-    icon: Trophy,
-    label: "Result Declaration",
-    date: "May 22, 2026",
-    desc: "Counting begins at 8:00 AM. Results expected by evening.",
-    color: "from-amber to-rose",
-    daysFromNow: 26,
-  },
-];
+import { useI18n } from "@/i18n/I18nProvider";
 
 const useCountdown = (days: number) => {
   const target = Date.now() + days * 24 * 60 * 60 * 1000;
@@ -45,12 +19,13 @@ const useCountdown = (days: number) => {
 };
 
 const Countdown = () => {
+  const { t } = useI18n();
   const { d, h, m, s } = useCountdown(22);
   const items = [
-    { v: d, l: "Days" },
-    { v: h, l: "Hours" },
-    { v: m, l: "Minutes" },
-    { v: s, l: "Seconds" },
+    { v: d, l: t("time.days") },
+    { v: h, l: t("time.hours") },
+    { v: m, l: t("time.minutes") },
+    { v: s, l: t("time.seconds") },
   ];
   return (
     <div className="grid grid-cols-4 gap-2 md:gap-4 max-w-xl mx-auto">
@@ -69,19 +44,43 @@ const Countdown = () => {
 };
 
 export const Timeline = () => {
+  const { t } = useI18n();
+  const events = [
+    {
+      icon: FileEdit,
+      label: t("time.regLabel"),
+      date: "April 30, 2026",
+      desc: t("time.regDesc"),
+      color: "from-cyan to-primary",
+    },
+    {
+      icon: Vote,
+      label: t("time.voteLabel"),
+      date: "May 18, 2026",
+      desc: t("time.voteDesc"),
+      color: "from-primary to-primary-glow",
+    },
+    {
+      icon: Trophy,
+      label: t("time.resLabel"),
+      date: "May 22, 2026",
+      desc: t("time.resDesc"),
+      color: "from-amber to-rose",
+    },
+  ];
   return (
     <section id="timeline" className="py-24">
       <div className="container">
         <SectionHeader
-          tag="UPCOMING"
-          title="Election Timeline"
-          subtitle="Mark your calendar for these key dates."
+          tag={t("time.tag")}
+          title={t("time.title")}
+          subtitle={t("time.subtitle")}
         />
 
         <div className="mt-10 mb-12">
           <div className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-4 flex items-center justify-center gap-2">
             <CalendarClock className="w-4 h-4 text-primary-glow" />
-            Countdown to Voting Day
+            {t("time.countdown")}
           </div>
           <Countdown />
         </div>

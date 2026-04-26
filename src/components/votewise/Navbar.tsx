@@ -1,15 +1,17 @@
 import { Vote } from "lucide-react";
-
-const links = [
-  { href: "#guide", label: "Guide" },
-  { href: "#chat", label: "AI Chat" },
-  { href: "#simulator", label: "Simulator" },
-  { href: "#timeline", label: "Timeline" },
-  { href: "#documents", label: "Documents" },
-  { href: "#quiz", label: "Quiz" },
-];
+import { useI18n } from "@/i18n/I18nProvider";
+import { LanguageSelector } from "./LanguageSelector";
 
 export const Navbar = () => {
+  const { t } = useI18n();
+  const links = [
+    { href: "#guide", label: t("nav.guide") },
+    { href: "#chat", label: t("nav.chat") },
+    { href: "#simulator", label: t("nav.simulator") },
+    { href: "#timeline", label: t("nav.timeline") },
+    { href: "#documents", label: t("nav.documents") },
+    { href: "#quiz", label: t("nav.quiz") },
+  ];
   return (
     <header className="fixed top-0 inset-x-0 z-50 glass">
       <nav className="container flex items-center justify-between h-16">
@@ -21,7 +23,7 @@ export const Navbar = () => {
             VoteWise<span className="gradient-text"> AI</span>
           </span>
         </a>
-        <ul className="hidden md:flex items-center gap-1">
+        <ul className="hidden lg:flex items-center gap-1">
           {links.map((l) => (
             <li key={l.href}>
               <a
@@ -33,12 +35,15 @@ export const Navbar = () => {
             </li>
           ))}
         </ul>
-        <a
-          href="#chat"
-          className="hidden sm:inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-primary to-primary-glow text-primary-foreground hover:shadow-[0_0_25px_hsl(var(--primary)/0.6)] transition-all hover:scale-105"
-        >
-          Ask AI
-        </a>
+        <div className="flex items-center gap-2">
+          <LanguageSelector />
+          <a
+            href="#chat"
+            className="hidden sm:inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-primary to-primary-glow text-primary-foreground hover:shadow-[0_0_25px_hsl(var(--primary)/0.6)] transition-all hover:scale-105"
+          >
+            {t("nav.askAi")}
+          </a>
+        </div>
       </nav>
     </header>
   );

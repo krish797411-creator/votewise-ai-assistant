@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, AlertTriangle, FileText, CheckCircle2, X } from "lucide-react";
 import { SectionHeader } from "./StepGuide";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const docs = [
   { id: "aadhaar", label: "Aadhaar Card", desc: "Government-issued unique ID", icon: "🆔" },
@@ -11,6 +12,7 @@ const docs = [
 ];
 
 export const DocumentChecker = () => {
+  const { t } = useI18n();
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const toggle = (id: string) => {
@@ -29,9 +31,9 @@ export const DocumentChecker = () => {
     <section id="documents" className="py-24">
       <div className="container">
         <SectionHeader
-          tag="DOCUMENT CHECK"
-          title="Are You Booth-Ready?"
-          subtitle="Select the documents you have to instantly check your eligibility."
+          tag={t("doc.tag")}
+          title={t("doc.title")}
+          subtitle={t("doc.subtitle")}
         />
 
         <div className="mt-12 grid lg:grid-cols-[1fr_1fr] gap-6 max-w-5xl mx-auto">
@@ -39,7 +41,7 @@ export const DocumentChecker = () => {
           <div className="card-gradient border border-border rounded-3xl p-6">
             <div className="flex items-center gap-2 mb-5">
               <FileText className="w-5 h-5 text-primary-glow" />
-              <h3 className="font-semibold">Your Documents</h3>
+              <h3 className="font-semibold">{t("doc.your")}</h3>
             </div>
             <div className="space-y-2">
               {docs.map((d) => {
@@ -89,21 +91,21 @@ export const DocumentChecker = () => {
                 )}
               </div>
               <h3 className="text-2xl font-bold mb-2">
-                {selected.size === 0 ? "Awaiting Selection" : eligible ? "You're Eligible! ✅" : "Almost There ⚠️"}
+                {selected.size === 0 ? t("doc.awaiting") : eligible ? t("doc.eligible") : t("doc.almost")}
               </h3>
               <p className="text-sm text-muted-foreground mb-6">
                 {selected.size === 0
-                  ? "Pick the documents you have to see your status."
+                  ? t("doc.awaitingDesc")
                   : eligible
-                  ? "You have everything needed to vote on election day."
-                  : "You're missing something. See checklist below."}
+                  ? t("doc.eligibleDesc")
+                  : t("doc.almostDesc")}
               </p>
             </div>
 
             <div className="space-y-2 text-sm">
-              <RequirementRow label="Valid government photo ID" met={hasPhotoId} />
-              <RequirementRow label="Voter roll verification (Voter ID or Aadhaar)" met={hasVoterProof} />
-              <RequirementRow label="At least 18 years of age" met={true} note="assumed" />
+              <RequirementRow label={t("doc.req.photo")} met={hasPhotoId} />
+              <RequirementRow label={t("doc.req.roll")} met={hasVoterProof} />
+              <RequirementRow label={t("doc.req.age")} met={true} note={t("doc.assumed")} />
             </div>
           </div>
         </div>
