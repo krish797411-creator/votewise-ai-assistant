@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DoorOpen, Vote, Check, RotateCcw, PartyPopper, ShieldCheck } from "lucide-react";
 import { SectionHeader } from "./StepGuide";
+import { useI18n } from "@/i18n/I18nProvider";
 
 type Stage = "welcome" | "select" | "confirm" | "success";
 
@@ -12,6 +13,7 @@ const candidates = [
 ];
 
 export const VotingSimulator = () => {
+  const { t } = useI18n();
   const [stage, setStage] = useState<Stage>("welcome");
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -27,9 +29,9 @@ export const VotingSimulator = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
       <div className="container relative">
         <SectionHeader
-          tag="INTERACTIVE"
-          title="Voting Simulator"
-          subtitle="Practice the voting process in a safe, simulated polling booth."
+          tag={t("sim.tag")}
+          title={t("sim.title")}
+          subtitle={t("sim.subtitle")}
         />
 
         <div className="mt-12 max-w-3xl mx-auto">
@@ -63,16 +65,14 @@ export const VotingSimulator = () => {
                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center mx-auto mb-6 animate-float shadow-[0_0_60px_hsl(var(--primary)/0.6)]">
                   <DoorOpen className="w-12 h-12 text-primary-foreground" />
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold mb-3">Welcome to the Polling Booth</h3>
-                <p className="text-muted-foreground max-w-md mx-auto mb-8">
-                  You're about to experience how voting works. Your finger will be inked, your ID checked, and then you'll cast your vote on the EVM.
-                </p>
+                <h3 className="text-2xl md:text-3xl font-bold mb-3">{t("sim.welcomeTitle")}</h3>
+                <p className="text-muted-foreground max-w-md mx-auto mb-8">{t("sim.welcomeDesc")}</p>
                 <button
                   onClick={() => setStage("select")}
                   className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-medium bg-gradient-to-r from-primary to-primary-glow text-primary-foreground hover:scale-105 transition-transform shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.7)] animate-pulse-glow"
                 >
                   <DoorOpen className="w-4 h-4" />
-                  Enter Polling Booth
+                  {t("sim.enter")}
                 </button>
               </div>
             )}
@@ -81,10 +81,10 @@ export const VotingSimulator = () => {
               <div className="w-full animate-fade-in">
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <ShieldCheck className="w-5 h-5 text-success" />
-                  <span className="text-xs text-success font-medium tracking-widest">SECURE BOOTH · YOUR VOTE IS PRIVATE</span>
+                  <span className="text-xs text-success font-medium tracking-widest">{t("sim.secure")}</span>
                 </div>
-                <h3 className="text-2xl font-bold mb-2">Select Your Candidate</h3>
-                <p className="text-muted-foreground text-sm mb-8">Tap a button on the EVM to make your choice.</p>
+                <h3 className="text-2xl font-bold mb-2">{t("sim.selectTitle")}</h3>
+                <p className="text-muted-foreground text-sm mb-8">{t("sim.selectDesc")}</p>
                 <div className="grid sm:grid-cols-2 gap-3">
                   {candidates.map((c, i) => (
                     <button
@@ -118,15 +118,15 @@ export const VotingSimulator = () => {
                   className="mt-8 inline-flex items-center gap-2 px-8 py-3 rounded-full font-medium bg-gradient-to-r from-primary to-primary-glow text-primary-foreground hover:scale-105 transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   <Vote className="w-4 h-4" />
-                  Continue
+                  {t("sim.continue")}
                 </button>
               </div>
             )}
 
             {stage === "confirm" && chosen && (
               <div className="animate-scale-in">
-                <div className="text-xs text-amber font-semibold tracking-widest mb-3">⚠ CONFIRM YOUR CHOICE</div>
-                <h3 className="text-2xl font-bold mb-6">You're voting for…</h3>
+                <div className="text-xs text-amber font-semibold tracking-widest mb-3">{t("sim.confirmTag")}</div>
+                <h3 className="text-2xl font-bold mb-6">{t("sim.confirmTitle")}</h3>
                 <div className="inline-flex flex-col items-center gap-3 p-6 rounded-2xl bg-secondary/60 border border-primary/40 mb-8">
                   <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${chosen.color} flex items-center justify-center text-4xl shadow-[0_0_30px_hsl(var(--primary)/0.4)] animate-float`}>
                     {chosen.symbol}
@@ -136,22 +136,20 @@ export const VotingSimulator = () => {
                     <div className="text-sm text-muted-foreground">{chosen.party}</div>
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground mb-6 max-w-sm mx-auto">
-                  Once submitted, your vote cannot be changed. Verify your VVPAT slip after casting.
-                </p>
+                <p className="text-sm text-muted-foreground mb-6 max-w-sm mx-auto">{t("sim.confirmDesc")}</p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <button
                     onClick={() => setStage("select")}
                     className="px-6 py-3 rounded-full font-medium glass hover:bg-secondary transition-colors"
                   >
-                    Go Back
+                    {t("sim.back")}
                   </button>
                   <button
                     onClick={() => setStage("success")}
                     className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-medium bg-gradient-to-r from-emerald to-cyan text-primary-foreground hover:scale-105 transition-transform shadow-[0_10px_40px_-10px_hsl(var(--accent-emerald)/0.7)]"
                   >
                     <Check className="w-4 h-4" />
-                    Confirm & Submit Vote
+                    {t("sim.confirm")}
                   </button>
                 </div>
               </div>
@@ -179,18 +177,18 @@ export const VotingSimulator = () => {
                 </div>
                 <h3 className="text-3xl font-bold gradient-text mb-3 flex items-center justify-center gap-2">
                   <PartyPopper className="w-7 h-7 text-amber" />
-                  Vote Successfully Submitted
+                  {t("sim.successTitle")}
                 </h3>
                 <p className="text-muted-foreground mb-2 max-w-md mx-auto">
-                  You voted for <span className="text-foreground font-semibold">{chosen?.name}</span>. Thank you for participating in democracy! 🇮🇳
+                  <span className="text-foreground font-semibold">{chosen?.name}</span> · {t("sim.successDesc")}
                 </p>
-                <p className="text-xs text-success mb-8">✓ VVPAT slip verified · Receipt #VW-{Math.floor(Math.random() * 9000 + 1000)}</p>
+                <p className="text-xs text-success mb-8">✓ {t("sim.receipt")} #VW-{Math.floor(Math.random() * 9000 + 1000)}</p>
                 <button
                   onClick={reset}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium glass hover:bg-secondary transition-colors"
                 >
                   <RotateCcw className="w-4 h-4" />
-                  Try Again
+                  {t("sim.tryAgain")}
                 </button>
               </div>
             )}
