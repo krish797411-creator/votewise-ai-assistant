@@ -140,6 +140,7 @@ export default {
         "pulse-glow": "pulse-glow 2.5s ease-in-out infinite",
         "shimmer": "shimmer 2.5s linear infinite",
         "ballot-drop": "ballot-drop 0.8s cubic-bezier(0.34,1.56,0.64,1) both",
+        "confetti": "confetti 1.5s ease-out forwards",
       },
     },
   },
