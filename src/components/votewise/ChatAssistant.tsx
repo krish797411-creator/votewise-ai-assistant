@@ -45,13 +45,13 @@ export const ChatAssistant = () => {
   }, [lang]);
 
   const send = (text: string) => {
-    const t = text.trim();
-    if (!t) return;
-    setMessages((m) => [...m, { role: "user", text: t }]);
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    setMessages((m) => [...m, { role: "user", text: trimmed }]);
     setInput("");
     setTyping(true);
     setTimeout(() => {
-      setMessages((m) => [...m, { role: "ai", text: getReply(t) }]);
+      setMessages((m) => [...m, { role: "ai", text: getReply(trimmed) }]);
       setTyping(false);
     }, 700 + Math.random() * 600);
   };
