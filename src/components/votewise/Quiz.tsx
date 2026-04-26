@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, X, Brain, RotateCcw, Trophy } from "lucide-react";
 import { SectionHeader } from "./StepGuide";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const questions = [
   {
@@ -24,6 +25,7 @@ const questions = [
 ];
 
 export const Quiz = () => {
+  const { t } = useI18n();
   const [idx, setIdx] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [score, setScore] = useState(0);
@@ -57,9 +59,9 @@ export const Quiz = () => {
     <section id="quiz" className="py-24">
       <div className="container">
         <SectionHeader
-          tag="QUICK QUIZ"
-          title="Test Your Knowledge"
-          subtitle="Three quick questions to see how much you've learned."
+          tag={t("quiz.tag")}
+          title={t("quiz.title")}
+          subtitle={t("quiz.subtitle")}
         />
 
         <div className="mt-12 max-w-2xl mx-auto card-gradient border border-border rounded-3xl p-8">
@@ -68,9 +70,9 @@ export const Quiz = () => {
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Brain className="w-4 h-4 text-primary-glow" />
-                  Question {idx + 1} / {questions.length}
+                  {t("quiz.qOf")} {idx + 1} / {questions.length}
                 </div>
-                <div className="text-sm font-semibold gradient-text">Score: {score}</div>
+                <div className="text-sm font-semibold gradient-text">{t("quiz.score")}: {score}</div>
               </div>
 
               <div className="h-1.5 bg-secondary rounded-full mb-8 overflow-hidden">
@@ -114,7 +116,7 @@ export const Quiz = () => {
                 <div className="mt-6 p-4 rounded-xl bg-secondary/60 border border-border animate-fade-in">
                   <p className="text-sm text-muted-foreground">
                     <span className="font-semibold text-foreground">
-                      {picked === q.answer ? "✓ Correct! " : "✗ Not quite. "}
+                      {picked === q.answer ? t("quiz.correct") : t("quiz.wrong")}
                     </span>
                     {q.explain}
                   </p>
@@ -122,7 +124,7 @@ export const Quiz = () => {
                     onClick={next}
                     className="mt-4 w-full px-6 py-2.5 rounded-full font-medium bg-gradient-to-r from-primary to-primary-glow text-primary-foreground hover:scale-[1.02] transition-transform"
                   >
-                    {idx + 1 < questions.length ? "Next Question" : "See Results"}
+                    {idx + 1 < questions.length ? t("quiz.next") : t("quiz.results")}
                   </button>
                 </div>
               )}
@@ -133,17 +135,17 @@ export const Quiz = () => {
                 <Trophy className="w-10 h-10 text-primary-foreground" />
               </div>
               <h3 className="text-3xl font-bold gradient-text mb-2">
-                {score === questions.length ? "Perfect Score!" : score >= 2 ? "Well Done!" : "Keep Learning!"}
+                {score === questions.length ? t("quiz.perfect") : score >= 2 ? t("quiz.well") : t("quiz.keep")}
               </h3>
               <p className="text-muted-foreground mb-6">
-                You scored <span className="text-foreground font-bold">{score} / {questions.length}</span>
+                {t("quiz.youScored")} <span className="text-foreground font-bold">{score} / {questions.length}</span>
               </p>
               <button
                 onClick={reset}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium glass hover:bg-secondary transition-colors"
               >
                 <RotateCcw className="w-4 h-4" />
-                Try Again
+                {t("quiz.tryAgain")}
               </button>
             </div>
           )}
