@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import type { TKey } from "@/i18n/translations";
+import { SpeakButton } from "./SpeakButton";
 
 const stepMeta = [
   { icon: CheckCircle2, color: "from-emerald to-cyan", k: 1 },
@@ -138,6 +139,15 @@ export const StepGuide = () => {
                       }`}
                     >
                       <p className="pt-4">{s.details}</p>
+                      <div className="mt-3 flex justify-end">
+                        <SpeakButton
+                          text={`${s.title}. ${s.details}`}
+                          id={`step-speak-${i}`}
+                          variant="soft"
+                          size="sm"
+                          label={`Pronounce step ${i + 1}`}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

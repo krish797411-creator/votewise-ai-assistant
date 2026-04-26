@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Check, Globe, ChevronDown } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import { LANGUAGES } from "@/i18n/translations";
+import { SpeakButton } from "./SpeakButton";
 
 export const LanguageSelector = () => {
   const { lang, setLang, t } = useI18n();
@@ -53,25 +54,39 @@ export const LanguageSelector = () => {
           {LANGUAGES.map((l) => {
             const active = l.code === lang;
             return (
-              <button
+              <div
                 key={l.code}
-                role="option"
-                aria-selected={active}
-                onClick={() => {
-                  setLang(l.code);
-                  setOpen(false);
-                }}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl text-left text-sm transition-colors ${
-                  active ? "bg-primary/15 text-foreground" : "hover:bg-secondary/70 text-muted-foreground hover:text-foreground"
+                className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-xl transition-colors ${
+                  active ? "bg-primary/15" : "hover:bg-secondary/70"
                 }`}
               >
-                <span className="text-base shrink-0">{l.flag}</span>
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium truncate">{l.native}</div>
-                  <div className="text-[11px] text-muted-foreground truncate">{l.label}</div>
-                </div>
-                {active && <Check className="w-4 h-4 text-primary-glow shrink-0" />}
-              </button>
+                <button
+                  role="option"
+                  aria-selected={active}
+                  onClick={() => {
+                    setLang(l.code);
+                    setOpen(false);
+                  }}
+                  className={`flex-1 flex items-center gap-3 text-left text-sm ${
+                    active ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <span className="text-base shrink-0">{l.flag}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium truncate">{l.native}</div>
+                    <div className="text-[11px] text-muted-foreground truncate">{l.label}</div>
+                  </div>
+                  {active && <Check className="w-4 h-4 text-primary-glow shrink-0" />}
+                </button>
+                <SpeakButton
+                  text={l.native}
+                  lang={l.code}
+                  id={`lang-${l.code}`}
+                  variant="soft"
+                  size="sm"
+                  label={`Pronounce ${l.label}`}
+                />
+              </div>
             );
           })}
         </div>

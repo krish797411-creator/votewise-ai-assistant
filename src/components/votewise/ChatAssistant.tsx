@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Bot, Send, User, Sparkles } from "lucide-react";
 import { SectionHeader } from "./StepGuide";
 import { useI18n } from "@/i18n/I18nProvider";
+import { SpeakButton } from "./SpeakButton";
 
 type Msg = { role: "user" | "ai"; text: string };
 
@@ -99,13 +100,18 @@ export const ChatAssistant = () => {
                   )}
                 </div>
                 <div
-                  className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                  className={`group relative max-w-[75%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                     m.role === "user"
                       ? "bg-gradient-to-br from-primary to-primary-glow text-primary-foreground rounded-tr-sm"
                       : "bg-secondary text-foreground rounded-tl-sm"
                   }`}
                 >
                   {m.text}
+                  {m.role === "ai" && (
+                    <div className="mt-2 flex justify-end">
+                      <SpeakButton text={m.text} id={`msg-${i}`} variant="soft" size="sm" />
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
