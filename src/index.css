@@ -124,4 +124,62 @@ All colors MUST be HSL.
     background: hsl(var(--primary) / 0.4);
     border-radius: 3px;
   }
+
+  /* Decorative site backdrop */
+  .site-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 10%, hsl(45 100% 70% / 0.55), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 85% 20%, hsl(35 95% 65% / 0.45), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 50% 100%, hsl(42 95% 60% / 0.35), transparent 65%),
+      hsl(50 100% 96%);
+  }
+  .site-backdrop::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(hsl(35 60% 30% / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(35 60% 30% / 0.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+  .site-backdrop .orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(60px);
+    opacity: 0.55;
+    animation: orb-float 14s ease-in-out infinite;
+  }
+  .site-backdrop .orb-1 {
+    width: 420px; height: 420px;
+    top: -80px; left: -80px;
+    background: radial-gradient(circle, hsl(45 100% 65% / 0.7), transparent 70%);
+  }
+  .site-backdrop .orb-2 {
+    width: 360px; height: 360px;
+    top: 30%; right: -100px;
+    background: radial-gradient(circle, hsl(35 95% 60% / 0.6), transparent 70%);
+    animation-delay: -5s;
+  }
+  .site-backdrop .orb-3 {
+    width: 480px; height: 480px;
+    bottom: -120px; left: 30%;
+    background: radial-gradient(circle, hsl(42 95% 55% / 0.55), transparent 70%);
+    animation-delay: -9s;
+  }
+
+  @keyframes orb-float {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(20px, -30px, 0) scale(1.08); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-backdrop .orb { animation: none; }
+  }
 }

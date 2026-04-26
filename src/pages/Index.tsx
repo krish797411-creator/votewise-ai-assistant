@@ -11,6 +11,11 @@ import { Footer } from "@/components/votewise/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <div className="site-backdrop" aria-hidden="true">
+        <span className="orb orb-1" />
+        <span className="orb orb-2" />
+        <span className="orb orb-3" />
+      </div>
       <Navbar />
       <main>
         <Hero />
