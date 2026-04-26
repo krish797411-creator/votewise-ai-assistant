@@ -8,56 +8,56 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* VoteWise AI — Dark theme by default */
-    --background: 230 35% 6%;
-    --foreground: 220 20% 96%;
+    /* VoteWise AI — Light yellow theme */
+    --background: 50 100% 96%;
+    --foreground: 35 40% 15%;
 
-    --card: 230 30% 9%;
-    --card-foreground: 220 20% 96%;
+    --card: 48 100% 98%;
+    --card-foreground: 35 40% 15%;
 
-    --popover: 230 30% 10%;
-    --popover-foreground: 220 20% 96%;
+    --popover: 48 100% 98%;
+    --popover-foreground: 35 40% 15%;
 
-    --primary: 265 90% 66%;
-    --primary-foreground: 230 35% 6%;
+    --primary: 42 95% 50%;
+    --primary-foreground: 35 50% 12%;
 
-    --primary-glow: 280 95% 70%;
-    --accent-cyan: 190 95% 60%;
-    --accent-emerald: 155 75% 55%;
-    --accent-amber: 38 95% 60%;
-    --accent-rose: 350 85% 65%;
+    --primary-glow: 45 100% 62%;
+    --accent-cyan: 190 75% 45%;
+    --accent-emerald: 155 60% 40%;
+    --accent-amber: 35 95% 55%;
+    --accent-rose: 350 75% 55%;
 
-    --secondary: 230 25% 14%;
-    --secondary-foreground: 220 20% 96%;
+    --secondary: 48 80% 90%;
+    --secondary-foreground: 35 40% 18%;
 
-    --muted: 230 22% 13%;
-    --muted-foreground: 220 12% 65%;
+    --muted: 48 70% 92%;
+    --muted-foreground: 35 20% 40%;
 
-    --accent: 265 90% 66%;
-    --accent-foreground: 230 35% 6%;
+    --accent: 42 95% 50%;
+    --accent-foreground: 35 50% 12%;
 
-    --destructive: 0 75% 60%;
-    --destructive-foreground: 220 20% 96%;
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --success: 155 75% 55%;
-    --warning: 38 95% 60%;
+    --success: 155 65% 38%;
+    --warning: 35 95% 50%;
 
-    --border: 230 25% 18%;
-    --input: 230 25% 16%;
-    --ring: 265 90% 66%;
+    --border: 45 60% 82%;
+    --input: 45 60% 85%;
+    --ring: 42 95% 50%;
 
     --radius: 1rem;
 
-    --gradient-primary: linear-gradient(135deg, hsl(265 90% 66%), hsl(280 95% 70%));
-    --gradient-hero: radial-gradient(ellipse at top, hsl(265 90% 66% / 0.25), transparent 60%),
-                     radial-gradient(ellipse at bottom right, hsl(190 95% 60% / 0.15), transparent 60%),
-                     hsl(230 35% 6%);
-    --gradient-card: linear-gradient(145deg, hsl(230 30% 11% / 0.9), hsl(230 30% 8% / 0.9));
-    --gradient-glow: radial-gradient(circle, hsl(265 90% 66% / 0.4), transparent 70%);
+    --gradient-primary: linear-gradient(135deg, hsl(42 95% 50%), hsl(45 100% 62%));
+    --gradient-hero: radial-gradient(ellipse at top, hsl(45 100% 70% / 0.55), transparent 60%),
+                     radial-gradient(ellipse at bottom right, hsl(35 95% 60% / 0.35), transparent 60%),
+                     hsl(50 100% 96%);
+    --gradient-card: linear-gradient(145deg, hsl(48 100% 98% / 0.95), hsl(48 90% 94% / 0.9));
+    --gradient-glow: radial-gradient(circle, hsl(45 100% 62% / 0.5), transparent 70%);
 
-    --shadow-glow: 0 0 40px hsl(265 90% 66% / 0.35);
-    --shadow-elegant: 0 20px 60px -20px hsl(265 90% 30% / 0.5);
-    --shadow-card: 0 10px 30px -10px hsl(230 50% 2% / 0.7);
+    --shadow-glow: 0 0 40px hsl(42 95% 50% / 0.35);
+    --shadow-elegant: 0 20px 60px -20px hsl(35 80% 40% / 0.35);
+    --shadow-card: 0 10px 30px -10px hsl(35 50% 30% / 0.2);
 
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -104,10 +104,10 @@ All colors MUST be HSL.
   }
 
   .glass {
-    background: hsl(230 30% 10% / 0.6);
+    background: hsl(48 100% 96% / 0.7);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid hsl(230 25% 22% / 0.6);
+    border: 1px solid hsl(45 70% 80% / 0.7);
   }
 
   .glow {
