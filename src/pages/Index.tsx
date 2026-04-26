@@ -1,16 +1,29 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Navbar } from "@/components/votewise/Navbar";
+import { Hero } from "@/components/votewise/Hero";
+import { StepGuide } from "@/components/votewise/StepGuide";
+import { ChatAssistant } from "@/components/votewise/ChatAssistant";
+import { VotingSimulator } from "@/components/votewise/VotingSimulator";
+import { Timeline } from "@/components/votewise/Timeline";
+import { DocumentChecker } from "@/components/votewise/DocumentChecker";
+import { Quiz } from "@/components/votewise/Quiz";
+import { Footer } from "@/components/votewise/Footer";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen">
+      <Navbar />
+      <main>
+        <Hero />
+        <StepGuide />
+        <ChatAssistant />
+        <VotingSimulator />
+        <Timeline />
+        <DocumentChecker />
+        <Quiz />
+      </main>
+      <Footer />
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
