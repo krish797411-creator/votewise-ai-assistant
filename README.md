@@ -20,8 +20,8 @@ VoteWise AI is an interactive assistant that simplifies elections using AI, step
 - AI: OpenAI API
 - Deployment: Google Cloud Run
 
-## 🌐 Live Demo
-https://github.com/krish797411-creator/votewise-ai-assistant.git
+## Live website🔴
+https://votewise-ai-assistant.vercel.app
 
 ## ⚙️ Setup Instructions
 git clone ...
