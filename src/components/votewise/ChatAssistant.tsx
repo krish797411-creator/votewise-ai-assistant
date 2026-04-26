@@ -1,50 +1,34 @@
 import { useEffect, useRef, useState } from "react";
 import { Bot, Send, User, Sparkles } from "lucide-react";
 import { SectionHeader } from "./StepGuide";
+import { useI18n } from "@/i18n/I18nProvider";
 
 type Msg = { role: "user" | "ai"; text: string };
 
-const knowledge: { q: string; a: string }[] = [
-  {
-    q: "how do i vote for the first time",
-    a: "First-time voters: 1) Confirm you're 18+ and registered. 2) Find your polling booth on the official voter portal. 3) Carry your Voter ID (EPIC) or any valid photo ID. 4) Get inked, sign the register, press the button next to your candidate on the EVM, and verify the VVPAT slip. That's it — democracy in action! 🗳️",
-  },
-  {
-    q: "what documents are required",
-    a: "Acceptable documents at the polling booth include: Voter ID (EPIC), Aadhaar card, Passport, Driving Licence, PAN card, government-issued service ID, or a bank passbook with photo. You only need ONE valid photo ID along with your name on the electoral roll.",
-  },
-  {
-    q: "when are elections held",
-    a: "General (Lok Sabha) elections happen every 5 years. State assembly elections also run on 5-year cycles, staggered across states. Local body and by-elections happen as needed. Check the Election Commission website for the official schedule of upcoming elections.",
-  },
-  {
-    q: "register",
-    a: "To register, visit the National Voter Service Portal (NVSP) and fill Form 6. You'll need proof of age, address, and a passport-size photo. It usually takes 2–4 weeks for your name to appear on the rolls.",
-  },
-  {
-    q: "evm",
-    a: "An EVM (Electronic Voting Machine) has buttons next to each candidate's name and symbol. Press the button beside your choice — a beep confirms your vote. The VVPAT machine then prints a slip you can verify through a glass window.",
-  },
-];
-
-const suggestions = [
-  "How do I vote for the first time?",
-  "What documents are required?",
-  "When are elections held?",
-];
-
-const getReply = (q: string): string => {
-  const lower = q.toLowerCase();
-  const match = knowledge.find((k) => lower.includes(k.q.split(" ")[0]) && k.q.split(" ").every((w) => lower.includes(w) || w.length < 3));
-  if (match) return match.a;
-  const loose = knowledge.find((k) => k.q.split(" ").some((w) => w.length > 4 && lower.includes(w)));
-  if (loose) return loose.a;
-  return "Great question! I'm a demo assistant trained on common first-time voter queries. Try asking about registration, required documents, EVMs, or election dates.";
-};
-
 export const ChatAssistant = () => {
+  const { t, lang } = useI18n();
+  const suggestions = [t("chat.q1"), t("chat.q2"), t("chat.q3")];
+  const qaPairs: { q: string; a: string }[] = [
+    { q: t("chat.q1"), a: t("chat.a1") },
+    { q: t("chat.q2"), a: t("chat.a2") },
+    { q: t("chat.q3"), a: t("chat.a3") },
+  ];
+
+  const getReply = (q: string): string => {
+    const lower = q.toLowerCase().trim();
+    // Exact suggestion match first
+    const exact = qaPairs.find((p) => p.q.toLowerCase().trim() === lower);
+    if (exact) return exact.a;
+    // Loose token match (works across scripts since we compare to localized question text)
+    const loose = qaPairs.find((p) =>
+      p.q.toLowerCase().split(/\s+/).some((w) => w.length > 3 && lower.includes(w)),
+    );
+    if (loose) return loose.a;
+    return t("chat.fallback");
+  };
+
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "ai", text: "Hi! I'm VoteWise AI 👋 Ask me anything about voting, or tap a suggestion below to get started." },
+    { role: "ai", text: t("chat.greeting") },
   ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
@@ -53,6 +37,12 @@ export const ChatAssistant = () => {
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, typing]);
+
+  // Reset greeting when language changes
+  useEffect(() => {
+    setMessages([{ role: "ai", text: t("chat.greeting") }]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
 
   const send = (text: string) => {
     const t = text.trim();
@@ -70,9 +60,9 @@ export const ChatAssistant = () => {
     <section id="chat" className="py-24">
       <div className="container">
         <SectionHeader
-          tag="AI ASSISTANT"
-          title="Talk to VoteWise AI"
-          subtitle="Get instant, beginner-friendly answers to your voting questions."
+          tag={t("chat.tag")}
+          title={t("chat.title")}
+          subtitle={t("chat.subtitle")}
         />
 
         <div className="mt-12 max-w-3xl mx-auto card-gradient border border-border rounded-3xl overflow-hidden shadow-[0_30px_80px_-30px_hsl(var(--primary)/0.4)]">
@@ -85,9 +75,9 @@ export const ChatAssistant = () => {
               <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-success border-2 border-background animate-pulse-glow" />
             </div>
             <div className="flex-1">
-              <div className="font-semibold text-sm">VoteWise Assistant</div>
+              <div className="font-semibold text-sm">{t("chat.assistant")}</div>
               <div className="text-xs text-success flex items-center gap-1">
-                <Sparkles className="w-3 h-3" /> Online · Ready to help
+                <Sparkles className="w-3 h-3" /> {t("chat.online")}
               </div>
             </div>
           </div>
@@ -158,7 +148,7 @@ export const ChatAssistant = () => {
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask about voting, registration, documents…"
+              placeholder={t("chat.placeholder")}
               className="flex-1 bg-secondary/60 border border-border rounded-full px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/60 placeholder:text-muted-foreground"
             />
             <button
