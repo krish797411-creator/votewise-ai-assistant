@@ -6,11 +6,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import { I18nProvider } from "./i18n/I18nProvider";
+import { ThemeProvider } from "./components/votewise/ThemeProvider";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
     <I18nProvider>
       <TooltipProvider>
         <Toaster />
@@ -24,6 +26,7 @@ const App = () => (
         </BrowserRouter>
       </TooltipProvider>
     </I18nProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
