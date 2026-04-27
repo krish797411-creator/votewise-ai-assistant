@@ -18,6 +18,13 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <div className="site-backdrop" aria-hidden="true">
+            <span className="orb orb-1" />
+            <span className="orb orb-2" />
+            <span className="orb orb-3" />
+            <span className="orb orb-4" />
+            <span className="orb orb-5" />
+          </div>
           <Routes>
             <Route path="/" element={<Index />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
