@@ -1,6 +1,7 @@
 import { Vote } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import { LanguageSelector } from "./LanguageSelector";
+import { ThemeToggle } from "./ThemeToggle";
 
 export const Navbar = () => {
   const { t } = useI18n();
@@ -36,6 +37,7 @@ export const Navbar = () => {
           ))}
         </ul>
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <LanguageSelector />
           <a
             href="#chat"
