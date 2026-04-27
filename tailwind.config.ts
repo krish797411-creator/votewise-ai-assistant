@@ -128,6 +128,20 @@ export default {
           "60%": { transform: "translateY(20px) rotate(2deg)", opacity: "1" },
           "100%": { transform: "translateY(0) rotate(0deg)", opacity: "1" },
         },
+        "bubble-in-left": {
+          "0%": { opacity: "0", transform: "translate(-18px, 8px) scale(0.92)" },
+          "60%": { opacity: "1", transform: "translate(2px, -1px) scale(1.01)" },
+          "100%": { opacity: "1", transform: "translate(0, 0) scale(1)" },
+        },
+        "bubble-in-right": {
+          "0%": { opacity: "0", transform: "translate(18px, 8px) scale(0.92)" },
+          "60%": { opacity: "1", transform: "translate(-2px, -1px) scale(1.01)" },
+          "100%": { opacity: "1", transform: "translate(0, 0) scale(1)" },
+        },
+        "typing-pop": {
+          "0%": { opacity: "0", transform: "translateY(6px) scale(0.9)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -141,6 +155,9 @@ export default {
         "shimmer": "shimmer 2.5s linear infinite",
         "ballot-drop": "ballot-drop 0.8s cubic-bezier(0.34,1.56,0.64,1) both",
         "confetti": "confetti 1.5s ease-out forwards",
+        "bubble-in-left": "bubble-in-left 0.45s cubic-bezier(0.34,1.56,0.64,1) both",
+        "bubble-in-right": "bubble-in-right 0.45s cubic-bezier(0.34,1.56,0.64,1) both",
+        "typing-pop": "typing-pop 0.3s cubic-bezier(0.34,1.56,0.64,1) both",
       },
     },
   },

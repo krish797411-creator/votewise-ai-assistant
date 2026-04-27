@@ -98,10 +98,14 @@ export const ChatAssistant = () => {
             {messages.map((m, i) => (
               <div
                 key={i}
-                className={`flex gap-3 animate-fade-in ${m.role === "user" ? "flex-row-reverse" : ""}`}
+                className={`flex gap-3 ${
+                  m.role === "user"
+                    ? "flex-row-reverse animate-bubble-in-right"
+                    : "animate-bubble-in-left"
+                }`}
               >
                 <div
-                  className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${m.role === "user" ? "bg-secondary" : "bg-gradient-to-br from-primary to-primary-glow"}`}
+                  className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center animate-scale-in ${m.role === "user" ? "bg-secondary" : "bg-gradient-to-br from-primary to-primary-glow"}`}
                 >
                   {m.role === "user" ? (
                     <User className="w-4 h-4" />
@@ -110,7 +114,7 @@ export const ChatAssistant = () => {
                   )}
                 </div>
                 <div
-                  className={`group relative max-w-[75%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                  className={`group relative max-w-[75%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-sm transition-shadow hover:shadow-md ${
                     m.role === "user"
                       ? "bg-gradient-to-br from-primary to-primary-glow text-primary-foreground rounded-tr-sm"
                       : "bg-secondary text-foreground rounded-tl-sm"
@@ -135,11 +139,11 @@ export const ChatAssistant = () => {
               </div>
             ))}
             {typing && (
-              <div className="flex gap-3 animate-fade-in">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center">
+              <div className="flex gap-3 animate-bubble-in-left">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center animate-scale-in">
                   <Bot className="w-4 h-4 text-primary-foreground" />
                 </div>
-                <div className="bg-secondary rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1">
+                <div className="bg-secondary rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1 animate-typing-pop">
                   <span className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce" />
                   <span className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce" style={{ animationDelay: "0.15s" }} />
                   <span className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce" style={{ animationDelay: "0.3s" }} />
