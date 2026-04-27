@@ -27,3 +27,11 @@ https://votewise-ai-assistant.vercel.app
 git clone ...
 npm install
 npm start
+
+## 🧪 Testing
+- Verified all buttons and navigation flows
+- Tested chatbot responses for common questions
+- Simulated complete voting process multiple times
+- Checked mobile responsiveness
+- Ensured all links and sections work correctly
+- Fixed UI issues and improved user feedback messages
