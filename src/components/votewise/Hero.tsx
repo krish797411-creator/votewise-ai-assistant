@@ -1,6 +1,7 @@
 import { ArrowRight, Sparkles, MessageCircle } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import { SpeakButton } from "./SpeakButton";
+import { Typewriter } from "./Typewriter";
 
 export const Hero = () => {
   const { t } = useI18n();
@@ -24,7 +25,12 @@ export const Hero = () => {
 
         <div className="max-w-2xl mx-auto mb-10 animate-fade-in-up flex items-start justify-center gap-2" style={{ animationDelay: "0.15s" }}>
           <p className="text-lg md:text-xl text-muted-foreground">
-            {t("hero.subtitle")}
+            <Typewriter
+              key={t("hero.subtitle")}
+              text={t("hero.subtitle")}
+              speed={24}
+              startDelay={400}
+            />
           </p>
           <SpeakButton text={t("hero.subtitle")} id="hero-subtitle" variant="soft" size="md" />
         </div>

@@ -3,8 +3,9 @@ import { Bot, Send, User, Sparkles } from "lucide-react";
 import { SectionHeader } from "./StepGuide";
 import { useI18n } from "@/i18n/I18nProvider";
 import { SpeakButton } from "./SpeakButton";
+import { Typewriter } from "./Typewriter";
 
-type Msg = { role: "user" | "ai"; text: string };
+type Msg = { role: "user" | "ai"; text: string; animate?: boolean };
 
 export const ChatAssistant = () => {
   const { t, lang } = useI18n();
@@ -29,7 +30,7 @@ export const ChatAssistant = () => {
   };
 
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "ai", text: t("chat.greeting") },
+    { role: "ai", text: t("chat.greeting"), animate: true },
   ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
@@ -50,7 +51,7 @@ export const ChatAssistant = () => {
 
   // Reset greeting when language changes
   useEffect(() => {
-    setMessages([{ role: "ai", text: t("chat.greeting") }]);
+    setMessages([{ role: "ai", text: t("chat.greeting"), animate: true }]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
 
@@ -61,7 +62,7 @@ export const ChatAssistant = () => {
     setInput("");
     setTyping(true);
     setTimeout(() => {
-      setMessages((m) => [...m, { role: "ai", text: getReply(trimmed) }]);
+      setMessages((m) => [...m, { role: "ai", text: getReply(trimmed), animate: true }]);
       setTyping(false);
     }, 700 + Math.random() * 600);
   };
@@ -115,7 +116,16 @@ export const ChatAssistant = () => {
                       : "bg-secondary text-foreground rounded-tl-sm"
                   }`}
                 >
-                  {m.text}
+                  {m.role === "ai" && m.animate ? (
+                    <Typewriter
+                      key={`tw-${i}`}
+                      text={m.text}
+                      speed={18}
+                      caretClassName="inline-block w-[2px] h-[1em] align-[-0.15em] ml-0.5 bg-foreground/60 animate-caret-blink"
+                    />
+                  ) : (
+                    m.text
+                  )}
                   {m.role === "ai" && (
                     <div className="mt-2 flex justify-end">
                       <SpeakButton text={m.text} id={`msg-${i}`} variant="soft" size="sm" />
