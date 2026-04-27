@@ -78,6 +78,66 @@ All colors MUST be HSL.
 
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
+  .dark {
+    /* VoteWise AI — Dark theme (warm amber on deep slate) */
+    --background: 230 25% 8%;
+    --foreground: 45 30% 92%;
+
+    --card: 230 22% 11%;
+    --card-foreground: 45 30% 92%;
+
+    --popover: 230 22% 11%;
+    --popover-foreground: 45 30% 92%;
+
+    --primary: 42 95% 58%;
+    --primary-foreground: 230 30% 10%;
+
+    --primary-glow: 45 100% 68%;
+    --accent-cyan: 190 75% 55%;
+    --accent-emerald: 155 60% 50%;
+    --accent-amber: 35 95% 60%;
+    --accent-rose: 350 75% 62%;
+
+    --secondary: 230 20% 16%;
+    --secondary-foreground: 45 30% 92%;
+
+    --muted: 230 18% 14%;
+    --muted-foreground: 45 15% 65%;
+
+    --accent: 42 95% 58%;
+    --accent-foreground: 230 30% 10%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 155 65% 48%;
+    --warning: 35 95% 58%;
+
+    --border: 230 18% 20%;
+    --input: 230 18% 20%;
+    --ring: 42 95% 58%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(42 95% 58%), hsl(45 100% 68%));
+    --gradient-hero: radial-gradient(ellipse at top, hsl(42 95% 50% / 0.25), transparent 60%),
+                     radial-gradient(ellipse at bottom right, hsl(35 95% 50% / 0.18), transparent 60%),
+                     hsl(230 25% 8%);
+    --gradient-card: linear-gradient(145deg, hsl(230 22% 13% / 0.95), hsl(230 22% 10% / 0.9));
+    --gradient-glow: radial-gradient(circle, hsl(45 100% 60% / 0.45), transparent 70%);
+
+    --shadow-glow: 0 0 40px hsl(42 95% 55% / 0.4);
+    --shadow-elegant: 0 20px 60px -20px hsl(42 95% 30% / 0.6);
+    --shadow-card: 0 10px 30px -10px hsl(0 0% 0% / 0.5);
+
+    --sidebar-background: 230 25% 8%;
+    --sidebar-foreground: 45 30% 92%;
+    --sidebar-primary: 42 95% 58%;
+    --sidebar-primary-foreground: 230 30% 10%;
+    --sidebar-accent: 230 20% 16%;
+    --sidebar-accent-foreground: 45 30% 92%;
+    --sidebar-border: 230 18% 20%;
+    --sidebar-ring: 42 95% 58%;
+  }
 }
 
 @layer base {
@@ -110,6 +170,11 @@ All colors MUST be HSL.
     border: 1px solid hsl(45 70% 80% / 0.7);
   }
 
+  .dark .glass {
+    background: hsl(230 22% 12% / 0.7);
+    border: 1px solid hsl(45 30% 30% / 0.4);
+  }
+
   .glow {
     box-shadow: var(--shadow-glow);
   }
@@ -137,6 +202,18 @@ All colors MUST be HSL.
       radial-gradient(ellipse 70% 50% at 85% 20%, hsl(35 95% 65% / 0.45), transparent 60%),
       radial-gradient(ellipse 60% 50% at 50% 100%, hsl(42 95% 60% / 0.35), transparent 65%),
       hsl(50 100% 96%);
+  }
+  .dark .site-backdrop {
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 10%, hsl(42 95% 50% / 0.25), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 85% 20%, hsl(35 95% 50% / 0.2), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 50% 100%, hsl(42 95% 45% / 0.18), transparent 65%),
+      hsl(230 25% 8%);
+  }
+  .dark .site-backdrop::before {
+    background-image:
+      linear-gradient(hsl(45 60% 80% / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(45 60% 80% / 0.05) 1px, transparent 1px);
   }
   .site-backdrop::before {
     content: "";
