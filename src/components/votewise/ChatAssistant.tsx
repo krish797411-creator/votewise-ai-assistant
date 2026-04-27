@@ -34,9 +34,18 @@ export const ChatAssistant = () => {
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
+  const didMountRef = useRef(false);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      return;
+    }
+    const el = endRef.current;
+    const parent = el?.parentElement;
+    if (parent) {
+      parent.scrollTo({ top: parent.scrollHeight, behavior: "smooth" });
+    }
   }, [messages, typing]);
 
   // Reset greeting when language changes
